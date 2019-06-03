@@ -16,7 +16,6 @@ Use of a program such as 'pngcheck -c [file]' is advised to ensure that all imag
 
 ## progress
 
-artefact  
 - [x] file loading & saving
 - [x] configuration loading
 - [x] thread safe debug logging
@@ -36,13 +35,20 @@ artefact
 - [x] basic mesh rendering
 - [x] mesh texture application
 - [ ] mesh dynamic lighting
+- [ ] non-static light count handling
 - [x] basic component-entity system
 - [x] base components : transform, camera, mesh renderer
 - [ ] camera compositing
-- [ ] post-processing effects
-- [ ] basic cuboid collision detection
-- [ ] basic cuboid collision resolution
+- [ ] post-processing buffer switch
+- [ ] post-processing : light-key
+- [ ] post-processing : blur
+- [ ] post-processing : monochrome
+- [ ] post-processing : bloom
+- [ ] post-processing : colour-grading
+- [ ] basic cube collision detection
+- [ ] basic cube collision resolution
 - [ ] complex convex shape collision detection
 - [ ] complex convex shape collision resolution
 - [ ] sample playback
 - [ ] auditory world-space simulation
+- [ ] animation playback
