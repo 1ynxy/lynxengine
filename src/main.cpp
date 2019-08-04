@@ -5,7 +5,6 @@ void update();
 
 // Program
 
-Shared<Entity> cament;
 Shared<Entity> objent;
 
 int main(int argc, char* argv[]) {
@@ -33,7 +32,7 @@ void init() {
 
 	// Set Up Camera & Default Object
 
-	cament = scene.instantiate("camera", glm::vec3(), glm::vec3(0, 0, 0));
+	Shared<Entity> cament = scene.instantiate("camera", glm::vec3(), glm::vec3(0, 0, 0));
 	cament->add(Camera(45.0f, 0.01f, 100.0f));
 	cament->add(Controller(4.0f));
 
@@ -52,4 +51,3 @@ void update() {
 
 	if (transform) transform->rotate(timer.delta * 50, transform->up());
 }
-
