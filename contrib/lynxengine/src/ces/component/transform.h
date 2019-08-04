@@ -21,6 +21,8 @@ public:
 	~Transform();
 	
 	// Member Functions
+
+	glm::mat4 transform();
 	
 	void posite(const glm::vec3& position);
 	void rotate(float rotation, const glm::vec3& axis);

@@ -38,12 +38,13 @@ void init() {
 
 	Shared<Entity> cament = scene.instantiate("camera", glm::vec3(), glm::vec3(0, 0, 0));
 	cament->add(Camera(45.0f, 0.01f, 100.0f, PROJ_PERSP));
-	cament->add(Controller(4.0f));
+	cament->add(Controller(4.0f, 1.0f));
 
 	compositor.add_camera(cament->get<Camera>());
 
 	objent = scene.instantiate("object", glm::vec3(0, 0, -5), glm::vec3());
 	objent->add(MeshRenderer("shader/default", "mesh/island", "sprite/island"));
+	//objent->add(Controller(4.0f, 10.0f));
 }
 
 void update() {
@@ -53,5 +54,5 @@ void update() {
 
 	Shared<Transform> transform = objent->get<Transform>();
 
-	if (transform) transform->rotate(timer.delta * 50, transform->up());
+	//if (transform) transform->rotate(timer.delta * 50, transform->up());
 }

@@ -17,9 +17,6 @@ private:
 
 	Shared<Camera> camera;
 
-	glm::mat4 projection = glm::mat4(1.0f);
-	glm::mat4 view = glm::mat4(1.0f);
-
 	Shared<Mesh> meshCache = nullptr;
 	Shared<Shader> shaderCache = nullptr;
 
@@ -28,11 +25,9 @@ public:
 
 	void set_camera(Shared<Camera> camera = nullptr);
 
-	bool sprite(Shared<Transform> transform, Shared<Sprite> sprite, Shared<Shader> shader = nullptr);
-	bool sprite(glm::vec2 position, glm::vec2 size, Shared<Sprite> sprite, Shared<Shader> shader = nullptr);
+	bool sprite(glm::vec4 transform, Shared<Sprite> sprite, Shared<Shader> shader = nullptr);
 	
-	bool mesh(Shared<Transform> transform, Shared<Mesh> mesh, Shared<Shader> shader, Shared<Sprite> sprite = nullptr);
-	bool mesh(glm::vec3 position, glm::vec3 rotation, Shared<Mesh> mesh, Shared<Shader> shader, Shared<Sprite> sprite = nullptr);
+	void mesh(glm::mat4 transform, Shared<Mesh> mesh, Shared<Shader> shader, Shared<Sprite> sprite = nullptr);
 };
 
 extern Render render;

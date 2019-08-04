@@ -1,5 +1,6 @@
 #include "controller.h"
 
+#include <../src/core/core.h>
 #include <../src/core/time.h>
 #include <../src/core/input.h>
 
@@ -7,11 +8,11 @@
 
 // Constructors & Destructors
 
-Controller::Controller(float speed) : speed(speed) {
+Controller::Controller(float speed, float rot_speed) : speed(speed), rot_speed(rot_speed) {
 
 }
 
-Controller::Controller(Shared<Entity> entity, const Controller& controller) : speed(controller.speed) {
+Controller::Controller(Shared<Entity> entity, const Controller& controller) : speed(controller.speed), rot_speed(controller.rot_speed) {
 	this->entity = entity;
 
 	init();
@@ -29,6 +30,16 @@ void Controller::init() {
 
 void Controller::update() {
 	if (!transform) return;
+
+	// Rotation
+
+	//if (input.keyboard.key_up(GLFW_KEY_LEFT)) transform->rotate(M_PI / 2, transform->up());
+
+	if (input.keyboard.key(GLFW_KEY_LEFT)) transform->rotate(timer.delta * rot_speed, transform->up());
+	if (input.keyboard.key(GLFW_KEY_RIGHT)) transform->rotate(timer.delta * -rot_speed, transform->up());
+
+	if (input.keyboard.key(GLFW_KEY_UP)) transform->rotate(timer.delta * -rot_speed, transform->left());
+	if (input.keyboard.key(GLFW_KEY_DOWN)) transform->rotate(timer.delta * rot_speed, transform->left());
 
 	/**/
 

@@ -10,12 +10,13 @@ public:
 	// Member Variables
 
 	float speed = 0.0f;
+	float rot_speed = 0.0f;
 
 	Shared<Transform> transform = nullptr;
 
 	// Constructors & Destructors
 
-	Controller(float speed);
+	Controller(float speed, float rot_speed);
 	Controller(Shared<Entity> entity, const Controller& controller);
 
 	~Controller();

@@ -1,5 +1,7 @@
 #include "transform.h"
 
+#include <../src/core/core.h>
+
 #include <../src/ces/entity.h>
 
 // Constructors & Destructors
@@ -20,6 +22,20 @@ Transform::~Transform() {
 
 // Member Functions
 
+glm::mat4 Transform::transform() {
+	glm::mat4 translate = glm::translate(glm::mat4(1.0f), position);
+
+	glm::mat4 rotX = glm::rotate(rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+	glm::mat4 rotY = glm::rotate(rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+	glm::mat4 rotZ = glm::rotate(rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
+
+	glm::mat4 rotate = rotZ * rotY * rotX;
+
+	// TRANSLATE * SCALE * ROTATE
+
+	return translate * rotate;
+}
+
 void Transform::posite(const glm::vec3& position) {
 	this->position += position;
 }
@@ -31,9 +47,9 @@ void Transform::rotate(float rotation, const glm::vec3& axis) {
 glm::vec3 Transform::up() const {
 	glm::vec3 up = glm::vec3(0, 1, 0);
 	
-	up = glm::rotateX(up, glm::radians(rotation.x));
-	up = glm::rotateY(up, glm::radians(rotation.y));
-	up = glm::rotateZ(up, glm::radians(rotation.z));
+	up = glm::rotateX(up, rotation.x);
+	up = glm::rotateY(up, rotation.y);
+	up = glm::rotateZ(up, rotation.z);
 	
 	return up;
 }
@@ -45,9 +61,9 @@ glm::vec3 Transform::down() const {
 glm::vec3 Transform::left() const {
 	glm::vec3 left = glm::vec3(-1, 0, 0);
 	
-	left = glm::rotateX(left, glm::radians(rotation.x));
-	left = glm::rotateY(left, glm::radians(rotation.y));
-	left = glm::rotateZ(left, glm::radians(rotation.z));
+	left = glm::rotateX(left, rotation.x);
+	left = glm::rotateY(left, rotation.y);
+	left = glm::rotateZ(left, rotation.z);
 	
 	return left;
 }
@@ -59,9 +75,9 @@ glm::vec3 Transform::right() const {
 glm::vec3 Transform::forward() const {
 	glm::vec3 forward = glm::vec3(0, 0, -1);
 	
-	forward = glm::rotateX(forward, glm::radians(rotation.x));
-	forward = glm::rotateY(forward, glm::radians(rotation.y));
-	forward = glm::rotateZ(forward, glm::radians(rotation.z));
+	forward = glm::rotateX(forward, rotation.x);
+	forward = glm::rotateY(forward, rotation.y);
+	forward = glm::rotateZ(forward, rotation.z);
 	
 	return forward;
 }
