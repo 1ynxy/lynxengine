@@ -13,36 +13,39 @@ void Render::set_camera(Shared<Camera> camera) {
 
 	glm::vec2 size;
 
-	if (camera) {
-		if (camera->target) {
-			glBindFramebuffer(GL_FRAMEBUFFER, camera->target->buffer);
+	if (camera && camera->target) {
+		glBindFramebuffer(GL_FRAMEBUFFER, camera->target->buffer);
 
-			size = camera->target->colour->get_size();
-		}
-		else {
-			glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		size = camera->target->colour->get_size();
+	}
+	else {
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-			size = core.display.get_size();
-		}
+		size = core.display.get_size();
 	}
 
 	glViewport(0, 0, (int) size.x, (int) size.y);
 
 	// Generate Projection & View Matrices
 
-	projection = camera->projection();
+	if (camera) {
+		projection = camera->projection();
 
-	if (camera->transform) {
-		glm::vec3 position = camera->transform->position;
-		glm::vec3 rotation = camera->transform->rotation;
+		if (camera->transform) {
+			glm::vec3 position = camera->transform->position;
+			glm::vec3 rotation = camera->transform->rotation;
 
-		view = glm::translate(glm::mat4(1.0f), position);
+			view = glm::translate(glm::mat4(1.0f), position);
 
-		view = glm::rotate(view, rotation.x, glm::vec3(0, 0, 1));
-		view = glm::rotate(view, rotation.y, glm::vec3(0, 1, 0));
-		view = glm::rotate(view, rotation.z, glm::vec3(1, 0, 0));
+			view = glm::rotate(view, rotation.x, glm::vec3(0, 0, 1));
+			view = glm::rotate(view, rotation.y, glm::vec3(0, 1, 0));
+			view = glm::rotate(view, rotation.z, glm::vec3(1, 0, 0));
 
-		view = glm::inverse(view);
+			view = glm::inverse(view);
+		}
+	}
+	else {
+		// DO
 	}
 
 	this->camera = camera;
@@ -53,7 +56,15 @@ bool Render::sprite(Shared<Transform> transform, Shared<Sprite> sprite, Shared<S
 }
 
 bool Render::sprite(glm::vec2 position, glm::vec2 size, Shared<Sprite> sprite, Shared<Shader> shader) {
-	// HERE
+	glm::vec2 screenSize = core.display.get_size();
+
+	// Generate Matrix
+
+	glm::mat4 transform = glm::mat4(1.0f);
+
+	transform = glm::translate(transform, glm::vec3(position.x, 0.0f, position.y));
+
+	// DO
 
 	return true;
 }

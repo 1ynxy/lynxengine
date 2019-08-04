@@ -7,6 +7,8 @@ void update();
 
 Shared<Entity> objent;
 
+Shared<Camera> cam;
+
 int main(int argc, char* argv[]) {
 	// Initialise Core
 
@@ -30,10 +32,12 @@ void init() {
 
 	core.display.open(glm::vec2(600, 300), glm::vec2(500, 500), "window", Colour(40, 40, 40));
 
+	//core.display.open(glm::vec2(500, 500), glm::vec2(500, 500), "window 2 : electric boogaloo", Colour(90, 0, 30));
+
 	// Set Up Camera & Default Object
 
 	Shared<Entity> cament = scene.instantiate("camera", glm::vec3(), glm::vec3(0, 0, 0));
-	cament->add(Camera(45.0f, 0.01f, 100.0f));
+	cament->add(Camera(45.0f, 0.01f, 100.0f, PROJ_PERSP));
 	cament->add(Controller(4.0f));
 
 	compositor.add_camera(cament->get<Camera>());

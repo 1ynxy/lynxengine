@@ -20,6 +20,8 @@ public:
 	float min;
 	float max;
 
+	float scale;
+
 	ProjectionType proj;
 
 	Shared<Transform> transform = nullptr;
@@ -28,7 +30,7 @@ public:
 
 	// Constructors & Destructors
 
-	Camera(float fov, float min, float max, ProjectionType proj = PROJ_PERSP);
+	Camera(float fov, float min, float max, ProjectionType proj = PROJ_PERSP, float scale = 1.0f);
 	Camera(Shared<Entity> entity, const Camera& camera);
 
 	~Camera();

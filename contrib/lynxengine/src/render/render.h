@@ -26,7 +26,7 @@ private:
 public:
 	// Member Functions
 
-	void set_camera(Shared<Camera> camera);
+	void set_camera(Shared<Camera> camera = nullptr);
 
 	bool sprite(Shared<Transform> transform, Shared<Sprite> sprite, Shared<Shader> shader = nullptr);
 	bool sprite(glm::vec2 position, glm::vec2 size, Shared<Sprite> sprite, Shared<Shader> shader = nullptr);
