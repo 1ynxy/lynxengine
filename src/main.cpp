@@ -54,5 +54,5 @@ void update() {
 
 	Shared<Transform> transform = objent->get<Transform>();
 
-	//if (transform) transform->rotate(timer.delta * 50, transform->up());
+	if (transform) transform->rotate(timer.delta * 50, transform->up());
 }

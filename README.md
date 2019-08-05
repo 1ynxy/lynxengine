@@ -37,7 +37,9 @@ Use of a program such as 'pngcheck -c [file]' is advised to ensure that all imag
 - [ ] mesh dynamic lighting
 - [ ] non-static light count handling
 - [x] basic component-entity system
-- [x] base components : transform, camera, mesh renderer
+- [ ] base components : transform
+- [x] base components : camera
+- [ ] base components : mesh renderer
 - [ ] camera compositing
 - [ ] post-processing buffer switch
 - [ ] post-processing : light-key
@@ -52,3 +54,9 @@ Use of a program such as 'pngcheck -c [file]' is advised to ensure that all imag
 - [ ] sample playback
 - [ ] auditory world-space simulation
 - [ ] animation playback
+
+## bugs
+
+\> rotation is broken - replace vector rotation with quaternions
+\> mesh renderer implementation is unoptimised - create renderqueue with automatic ordering
+\> camera renders straight to default framebuffer - implement target framebuffers and basic compositing

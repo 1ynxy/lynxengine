@@ -41,7 +41,12 @@ void Transform::posite(const glm::vec3& position) {
 }
 
 void Transform::rotate(float rotation, const glm::vec3& axis) {
-	this->rotation += axis * rotation;
+	this->rotation += glm::rotate(this->rotation, rotation, axis);
+
+	// TODO FIX | REPLACE WITH QUATERNIONS
+
+	//debug.info(std::to_string(rotation) + " * " + std::to_string(this->rotation.x) + ":" + std::to_string(this->rotation.y) + ":" + std::to_string(this->rotation.z));
+	//debug.info(std::to_string(rotation) + " * " + std::to_string(axis.x) + ":" + std::to_string(axis.y) + ":" + std::to_string(axis.z));
 }
 
 glm::vec3 Transform::up() const {
