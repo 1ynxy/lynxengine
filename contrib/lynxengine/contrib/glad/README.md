@@ -3,11 +3,8 @@ glad
 
 GL/GLES/EGL/GLX/WGL Loader-Generator based on the official specs.
 
-Use the [webservice](http://glad.dav1d.de) to generate the files you need!
+Use the [webservice](https://glad.dav1d.de) to generate the files you need!
 
-
-**IMPORTANT:** If you're experiencing errors like `identifier "GLintptr" is undefined`,
-*update* to the latest glad version!
 
 ```c
 #include <glad/glad.h>
@@ -29,13 +26,13 @@ int main(int argc, char **argv)
 Examples: 
  * [simple.c](https://github.com/Dav1dde/glad/blob/master/example/c/simple.c)
  * [hellowindow2.cpp](https://github.com/Dav1dde/glad/blob/master/example/c%2B%2B/hellowindow2.cpp)
- using [GLFW](http://glfw.org):
+ using [GLFW](https://glfw.org):
 
 
 ## Usage ##
 
 
-**If you don't want to install glad you can use the [webservice](http://glad.dav1d.de)**
+**If you don't want to install glad you can use the [webservice](https://glad.dav1d.de)**
 
 
 Otherwise either install glad via pip:
@@ -233,7 +230,7 @@ On non-Windows platforms glad requires `libdl`, make sure to link with it (`L-ld
 
 ### How do I build glad or how do I integrate glad?
 
-Easiest way of using glad is through the [webservice](http://glad.dav1d.de).
+Easiest way of using glad is through the [webservice](https://glad.dav1d.de).
 
 Alternatively glad integrates with:
 
@@ -243,8 +240,11 @@ Alternatively glad integrates with:
 
 Thanks for all the help and support maintaining those!
 
-### glad includes windows.h which breaks my code! [#42](https://github.com/Dav1dde/glad/issues/42)
+### glad includes windows.h [#42](https://github.com/Dav1dde/glad/issues/42)
 
+**Since 0.1.30:** glad does not include `windows.h` anymore.
+
+**Before 0.1.30:**
 Defining `APIENTRY` before including `glad.h` solves this problem:
 
 ```c

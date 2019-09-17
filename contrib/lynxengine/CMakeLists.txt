@@ -1,11 +1,9 @@
-cmake_minimum_required(VERSION 3.2)
+cmake_minimum_required(VERSION 3.5)
+project(lynxengine LANGUAGES CXX)
 
-project(lynxengine DESCRIPTION "Basic Component Entity System Engine")
-
-add_subdirectory(contrib/glad)
-
-find_package(Threads REQUIRED)
-find_package(glm REQUIRED)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED OFF)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_library(lynxengine
   src/resource/asset/req/lodepng.cpp
@@ -42,12 +40,18 @@ add_library(lynxengine
 target_include_directories(lynxengine PRIVATE lynxengine)
 target_include_directories(lynxengine PRIVATE src)
 
+find_package(Threads REQUIRED)
+
+add_subdirectory(contrib/glad/)
+add_subdirectory(contrib/glm/)
+
 target_link_libraries(lynxengine
-  ${CMAKE_THREAD_LIBS_INIT}
-  -ldl
-  glad
-  glfw
-  glm
+  PRIVATE
+    Threads::Threads
+  PUBLIC
+    glad
+    glm_static
+    glfw
 )
 
 set_target_properties(lynxengine PROPERTIES PUBLIC_HEADER lynxengine/lynxengine.h)

@@ -13,5 +13,8 @@ add_executable(lynxgame
 )
 
 target_link_libraries(lynxgame
-  lynxengine
+  PRIVATE
+    
+  PUBLIC
+    lynxengine
 )

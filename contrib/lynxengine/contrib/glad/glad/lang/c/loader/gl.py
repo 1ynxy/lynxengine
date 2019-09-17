@@ -43,7 +43,7 @@ static int get_exts(void) {
         num_exts_i = 0;
         glGetIntegerv(GL_NUM_EXTENSIONS, &num_exts_i);
         if (num_exts_i > 0) {
-            exts_i = (char **)realloc((void *)exts_i, (size_t)num_exts_i * (sizeof *exts_i));
+            exts_i = (char **)malloc((size_t)num_exts_i * (sizeof *exts_i));
         }
 
         if (exts_i == NULL) {
@@ -134,13 +134,7 @@ _OPENGL_HEADER_INCLUDE_ERROR = '''
 
 _OPENGL_HEADER = '''
 #if defined(_WIN32) && !defined(APIENTRY) && !defined(__CYGWIN__) && !defined(__SCITECH_SNAP__)
-#ifndef WIN32_LEAN_AND_MEAN
-#define WIN32_LEAN_AND_MEAN 1
-#endif
-#ifndef NOMINMAX
-#define NOMINMAX 1
-#endif
-#include <windows.h>
+#define APIENTRY __stdcall
 #endif
 
 #ifndef APIENTRY

@@ -11,19 +11,19 @@ if(NOT CMAKE_VERSION VERSION_LESS 3.1)
   cmake_policy(SET CMP0054 NEW)
 endif()
 
-project(GLAD VERSION 0.1.27 LANGUAGES C)
-
+project(GLAD VERSION 0.1.33 LANGUAGES C)
 
 set(GLAD_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
-set(GLAD_OUT_DIR "${CMAKE_CURRENT_BINARY_DIR}")
 find_package(PythonInterp REQUIRED)
 
 # Options
+set(GLAD_OUT_DIR "${CMAKE_CURRENT_BINARY_DIR}" CACHE STRING "Output directory")
 set(GLAD_PROFILE "compatibility" CACHE STRING "OpenGL profile")
 set(GLAD_API "" CACHE STRING "API type/version pairs, like \"gl=3.2,gles=\", no version means latest")
 set(GLAD_GENERATOR "c" CACHE STRING "Language to generate the binding for")
 set(GLAD_EXTENSIONS "" CACHE STRING "Path to extensions file or comma separated list of extensions, if missing all extensions are included")
 set(GLAD_SPEC "gl" CACHE STRING "Name of the spec")
+option(GLAD_ALL_EXTENSIONS "Include all extensions instead of those specified by GLAD_EXTENSIONS" OFF)
 option(GLAD_NO_LOADER "No loader" OFF)
 option(GLAD_REPRODUCIBLE "Reproducible build" OFF)
 if (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
@@ -32,6 +32,10 @@ else()
   option(GLAD_EXPORT "Set export variables for external project" ON)
 endif()
 option(GLAD_INSTALL "Generate installation target" OFF)
+
+if (MSVC)
+    option(USE_MSVC_RUNTIME_LIBRARY_DLL "Use MSVC runtime library DLL" ON)
+endif()
 
 if(GLAD_GENERATOR STREQUAL "d")
   list(APPEND GLAD_SOURCES
@@ -61,6 +65,9 @@ else()
   )
 endif()
 
+if(NOT GLAD_ALL_EXTENSIONS)
+  set(GLAD_EXTENSIONS_ARG "--extensions=${GLAD_EXTENSIONS}")
+endif()
 if(GLAD_NO_LOADER)
    set(GLAD_NO_LOADER_ARG "--no-loader")
 endif()
@@ -75,7 +82,7 @@ add_custom_command(
     --out-path=${GLAD_OUT_DIR}
     --api=${GLAD_API}
     --generator=${GLAD_GENERATOR}
-    --extensions=${GLAD_EXTENSIONS}
+    ${GLAD_EXTENSIONS_ARG}
     --spec=${GLAD_SPEC}
     ${GLAD_NO_LOADER_ARG}
     ${GLAD_REPRODUCIBLE_ARG}
@@ -101,6 +108,25 @@ endif()
 
 if(GLAD_LINKER_LANGUAGE)
   set_target_properties(glad PROPERTIES LINKER_LANGUAGE ${GLAD_LINKER_LANGUAGE})
+endif()
+
+if (MSVC)
+  if (NOT USE_MSVC_RUNTIME_LIBRARY_DLL)
+    foreach (flag CMAKE_C_FLAGS
+                  CMAKE_C_FLAGS_DEBUG
+                  CMAKE_C_FLAGS_RELEASE
+                  CMAKE_C_FLAGS_MINSIZEREL
+                  CMAKE_C_FLAGS_RELWITHDEBINFO)
+
+      if (${flag} MATCHES "/MD")
+        string(REGEX REPLACE "/MD" "/MT" ${flag} "${${flag}}")
+      endif()
+      if (${flag} MATCHES "/MDd")
+        string(REGEX REPLACE "/MDd" "/MTd" ${flag} "${${flag}}")
+      endif()
+
+    endforeach()
+  endif()
 endif()
 
 # Export

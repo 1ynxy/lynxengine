@@ -40,7 +40,7 @@ HEADER_TEMPLATE = '''
 class Generator(object):
     NAME = None
     NAME_LONG = None
-    URL = 'http://glad.dav1d.de'
+    URL = 'https://glad.dav1d.de'
 
     def __init__(self, path, spec, api, extension_names=None, loader=None,
                  opener=None, local_files=False, omit_khrplatform=False,
@@ -51,8 +51,8 @@ class Generator(object):
         for a in api:
             if a not in self.spec.features:
                 raise ValueError(
-                    'Unknown API "{0}" for specification "{1}"'
-                    .format(a, self.spec.NAME)
+                    'Unknown API "{0}" for specification "{1}", the following APIs are available "{2}".'
+                    .format(a, self.spec.NAME, ', '.join(self.spec.features.keys()))
                 )
         self.api = api
         self.extension_names = extension_names
