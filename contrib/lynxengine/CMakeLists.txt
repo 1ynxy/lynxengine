@@ -42,12 +42,14 @@ target_include_directories(lynxengine PRIVATE src/)
 
 find_package(Threads REQUIRED)
 
-include_directories(PUBLIC contrib/glad/)
 include_directories(PUBLIC contrib/glm/)
+
+add_subdirectory(contrib/glad/)
 
 target_link_libraries(lynxengine
   PRIVATE
     Threads::Threads
+    -ldl
   PUBLIC
     glad
     glfw
