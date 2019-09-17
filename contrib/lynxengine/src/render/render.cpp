@@ -46,7 +46,7 @@ void Render::mesh(glm::mat4 transform, Shared<Mesh> mesh, Shared<Shader> shader,
 
 	glm::mat4 projection = (camera) ? camera->projection() : glm::mat4(1.0f);
 
-	glm::mat4 view = (camera && camera->transform) ? glm::inverse(camera->transform->transform()) : glm::mat4(1.0f);
+	glm::mat4 view = (camera && camera->transform) ? glm::inverse(camera->transform->matrix()) : glm::mat4(1.0f);
 
 	// Draw
 

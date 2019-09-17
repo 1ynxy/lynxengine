@@ -37,6 +37,6 @@ void MeshRenderer::display() {
 	for (Shared<Camera> camera : compositor.cameras) {
 		render.set_camera(camera);
 
-		render.mesh(transform->transform(), mesh, shader, sprite);
+		render.mesh(transform->matrix(), mesh, shader, sprite);
 	}
 }

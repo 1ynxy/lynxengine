@@ -37,20 +37,19 @@ add_library(lynxengine
   src/ces/component/meshrenderer.cpp
 )
 
-target_include_directories(lynxengine PRIVATE lynxengine)
-target_include_directories(lynxengine PRIVATE src)
+target_include_directories(lynxengine PRIVATE lynxengine/)
+target_include_directories(lynxengine PRIVATE src/)
 
 find_package(Threads REQUIRED)
 
-add_subdirectory(contrib/glad/)
-add_subdirectory(contrib/glm/)
+include_directories(PUBLIC contrib/glad/)
+include_directories(PUBLIC contrib/glm/)
 
 target_link_libraries(lynxengine
   PRIVATE
     Threads::Threads
   PUBLIC
     glad
-    glm_static
     glfw
 )
 

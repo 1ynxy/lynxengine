@@ -22,7 +22,7 @@ Transform::~Transform() {
 
 // Member Functions
 
-glm::mat4 Transform::transform() {
+glm::mat4 Transform::matrix() {
 	glm::mat4 translate = glm::translate(glm::mat4(1.0f), position);
 
 	glm::mat4 rotX = glm::rotate(rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));

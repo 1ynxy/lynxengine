@@ -22,7 +22,7 @@ public:
 	
 	// Member Functions
 
-	glm::mat4 transform();
+	glm::mat4 matrix();
 	
 	void posite(const glm::vec3& position);
 	void rotate(float rotation, const glm::vec3& axis);
